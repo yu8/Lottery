@@ -7,7 +7,7 @@ class Lottery
   end
 
   def add(name,weight)
-    @members.insert(weight,name)
+    @members.concat Array.new(weight,name)
   end
 
   def winners
