@@ -13,16 +13,12 @@ class Lottery
   def winners
     hits = []
     members = @members.dup
-    if members.uniq.size < @size
-      hits = members.uniq
-    else
-      @size.times do 
-        hitman = members.sample
-        hits.push(hitman)
-        members.delete(hitman)
-      end
+    @size.times do 
+      hitman = members.sample
+      hits.push(hitman)
+      members.delete(hitman)
     end
+    hits = hits.compact
     hits
   end
 end
-
