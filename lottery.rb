@@ -7,23 +7,37 @@ class Lottery
   end
 
   def add(name,weight)
-    (1..weight).each do |num|
-      @members.push(name)
-    end
+    @members.insert(weight,name)
   end
 
   def winners
-    @hits = []
+    hits = []
     members = @members.dup
     if members.uniq.size < @size
-      @hits = members.uniq
+      hits = members.uniq
     else
-      (1..@size).each do |num|
+      @size.times do 
         hitman = members.sample
-        @hits.push(hitman)
+        hits.push(hitman)
         members.delete(hitman)
       end
     end
-    @hits
+    hits
   end
 end
+
+lottery = Lottery.new(3)
+lottery.add('John', 1) # 確率  1/20
+lottery.add('Tom',  2) #       2/20
+lottery.add('Bill', 5) #       5/20
+lottery.add('Woz',  2) #       2/20
+lottery.add('Ken', 10) #      10/20
+
+result = Hash.new(0)
+10000.times do
+  lottery.winners.each do |member|
+    result[member] += 1
+  end
+end
+
+puts result
