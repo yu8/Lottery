@@ -1,22 +1,22 @@
 # encoding: utf-8
 
 class Lottery
-  def initialize(size)
-    @size = size
+  def initialize(max_winners)
+    @max_winners = max_winners
     @members = [] 
   end
 
-  def add(name,weight)
-    @members.concat Array.new(weight,name)
+  def add(name, weight)
+    @members.concat(Array.new(weight, name))
   end
 
   def winners
     hits = []
     members = @members.dup
-    @size.times do 
-      hitman = members.sample
-      hits.push(hitman)
-      members.delete(hitman)
+    @max_winners.times do 
+      winner = members.sample
+      hits.push(winner)
+      members.delete(winner)
     end
     hits.compact
   end
